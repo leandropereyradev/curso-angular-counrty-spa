@@ -9,9 +9,24 @@ export class CountriesService {
 
   private apiUrl: string = 'https://restcountries.com/v3.1';
 
-  searchCapital(term: string): Observable<Country[]> {
+  private getResponseBySetting(
+    option: string,
+    term: string
+  ): Observable<Country[]> {
     return this.http
-      .get<Country[]>(`${this.apiUrl}/capital/${term}`)
+      .get<Country[]>(`${this.apiUrl}/${option}/${term}`)
       .pipe(catchError(() => of([])));
+  }
+
+  searchCapital(term: string): Observable<Country[]> {
+    return this.getResponseBySetting('capital', term);
+  }
+
+  searchCountry(term: string): Observable<Country[]> {
+    return this.getResponseBySetting('name', term);
+  }
+
+  searchRegion(region: string): Observable<Country[]> {
+    return this.getResponseBySetting('region', region);
   }
 }
