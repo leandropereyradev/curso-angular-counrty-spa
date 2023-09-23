@@ -13,10 +13,9 @@ export class CountriesService {
     option: string,
     term: string
   ): Observable<Country[]> {
-    return this.http.get<Country[]>(`${this.apiUrl}/${option}/${term}`).pipe(
-      catchError(() => of([])),
-      delay(2000)
-    );
+    return this.http
+      .get<Country[]>(`${this.apiUrl}/${option}/${term}`)
+      .pipe(catchError(() => of([])));
   }
 
   searchCapital(term: string): Observable<Country[]> {
